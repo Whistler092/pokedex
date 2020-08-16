@@ -6,6 +6,8 @@ using Pokedex.Core.Business;
 using Pokedex.Core.Business.Interfaces;
 using Pokedex.Core.Core;
 using Pokedex.Core.Core.Interfaces;
+using Pokedex.Core.Integrations;
+using Pokedex.Core.Integrations.Interfaces;
 using System;
 using System.IO;
 using System.Reflection;
@@ -26,8 +28,13 @@ namespace PokedexApp.Configuration
             (this IServiceCollection services)
         {
             services.AddTransient<ITrainerBusiness, TrainerBusiness>();
+            services.AddTransient<IPokeBusiness, PokeBusiness>();
+
+            services.AddHttpClient();
 
             services.AddTransient<ITrainerData, TrainerData>();
+            services.AddTransient<IPokeAPIIntegration, PokeAPIIntegration>();
+            
             return services;
         }
 

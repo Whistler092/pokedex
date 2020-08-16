@@ -61,7 +61,9 @@ export const actionCreators = {
 
 const unloadedState: WeatherForecastsState = { forecasts: [], isLoading: false };
 
-export const reducer: Reducer<WeatherForecastsState> = (state: WeatherForecastsState | undefined, incomingAction: Action): WeatherForecastsState => {
+export const reducer: Reducer<WeatherForecastsState> 
+= (state: WeatherForecastsState | undefined, incomingAction: Action)
+: WeatherForecastsState => {
     if (state === undefined) {
         return unloadedState;
     }
