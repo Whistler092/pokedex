@@ -12,3 +12,21 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.pokemon-container-description-line{
+  background: lightgray;
+  color: white;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 0.5EM;
+}
+
+.pokemon-container-title-p{
+  text-align: center;
+}
+
+.pokemon-container-title-a{
+  text-decoration: none;
+  color: inherit;
+  text-transform: capitalize;
+}

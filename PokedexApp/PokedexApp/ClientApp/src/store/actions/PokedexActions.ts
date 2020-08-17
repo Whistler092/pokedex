@@ -2,6 +2,7 @@ import { AppThunkAction } from "../";
 
 export const REQUEST_INITIAL_POKEMON = 'REQUEST_INITIAL_POKEMON'
 export const RECEIVE_INITIAL_POKEMON = 'RECEIVE_INITIAL_POKEMON'
+export const RECEIVE_FULL_POKEMON = 'RECEIVE_FULL_POKEMON'
 
 export interface PokedexState {
     isLoading: boolean;
@@ -10,9 +11,15 @@ export interface PokedexState {
 }
 
 export interface Pokemon {
+    id: string;
     name: string;
     photo: string;
     type: any[];
+}
+
+interface ReceiveFullPokemonAction {
+    type: typeof RECEIVE_FULL_POKEMON,
+    pokemon: any;
 }
 
 interface RequestInitialPokemonAction {
@@ -27,7 +34,8 @@ interface ReceiveInitialPokemonAction {
 }
 
 export type KnownAction = RequestInitialPokemonAction
-    | ReceiveInitialPokemonAction;
+    | ReceiveInitialPokemonAction
+    | ReceiveFullPokemonAction;
 
 export const actionCreators = {
     requestInitialPokemon: (index: number): AppThunkAction<KnownAction> => (dispatch, getState) => {
@@ -37,19 +45,29 @@ export const actionCreators = {
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
-                    console.log('requestInitialPokemon', data);
+                    //console.log('requestInitialPokemon', data);
                     dispatch({
                         type: RECEIVE_INITIAL_POKEMON,
                         index: index,
                         pokemons: data
+                    });
+                    data.forEach((poke: { id: any; }) => {
+                        let url = `/api/Poke/${poke.id}`;
+                        fetch(url)
+                            .then(response => response.json())
+                            .then(pokeData => {
+                                //console.log('requestPullPokemon', pokeData);
+                                dispatch({
+                                    type: RECEIVE_FULL_POKEMON,
+                                    pokemon: pokeData
+                                });
+                            });
                     });
                 });
             dispatch({
                 type: REQUEST_INITIAL_POKEMON,
                 index: index
             });
-
         }
     }
-
 }

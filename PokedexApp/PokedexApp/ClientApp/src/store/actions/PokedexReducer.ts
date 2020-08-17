@@ -2,7 +2,8 @@ import { Action, Reducer } from 'redux';
 import {
     PokedexState, KnownAction,
     REQUEST_INITIAL_POKEMON,
-    RECEIVE_INITIAL_POKEMON
+    RECEIVE_INITIAL_POKEMON,
+    RECEIVE_FULL_POKEMON
 } from './PokedexActions';
 
 const initialState: PokedexState = {
@@ -28,6 +29,26 @@ export const reducer: Reducer<PokedexState>
                         pokemons: action.pokemons,
                         isLoading: false
                     };
+                }
+            case RECEIVE_FULL_POKEMON:
+                {
+                    //console.log('RECEIVE_FULL_POKEMON', action.pokemon);
+                    /* let pokemon = state.pokemons.filter(i => i.id === action.pokemon.id)
+                    pokemon[0].photo = action.pokemon.photo;
+                    pokemon[0].type = action.pokemon.types; */
+                    let pokemon = state.pokemons.map(i => {
+                        if(i.id === action.pokemon.id){
+                            i.photo = action.pokemon.photo;
+                            i.type = action.pokemon.types; 
+                        }
+                        return i;
+                    })
+                    
+                    return {
+                        index: state.index,
+                        isLoading: state.isLoading,
+                        pokemons: pokemon
+                    }
                 }
         }
         return state;

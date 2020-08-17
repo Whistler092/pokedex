@@ -21,5 +21,12 @@ namespace PokedexApp.Controllers
         {
             return Ok(await pokeBusiness.GetAll(offset));
         }
+
+        // GET api/<PokeController>/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetById(string id)
+        {
+            return Ok(await pokeBusiness.GetById(id));
+        }
     }
 }

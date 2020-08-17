@@ -19,5 +19,10 @@ namespace Pokedex.Core.Business
         {
            return await pokeAPIIntegration.GetAll(offset);
         }
+
+        public async Task<Pokemon> GetById(string id)
+        {
+            return await pokeAPIIntegration.GetById(id);
+        }
     }
 }

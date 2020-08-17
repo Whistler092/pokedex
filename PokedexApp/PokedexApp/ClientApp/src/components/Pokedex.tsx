@@ -41,32 +41,38 @@ class Pokedex extends PureComponent<PokedexProps> {
     }
 
     private renderPokemons(pokemons: any[]) {
-        console.log('renderPokemons', pokemons);
+        //console.log('renderPokemons', pokemons);
         return (
             <React.Fragment >
-                 {pokemons.map(pokemon => (
-                     <div className="col-sm-3" key={pokemon.name}>
+                {pokemons.map(pokemon => (
+                    <div className="col-sm-3" key={pokemon.name}>
+                        <div className="pokemon-container-title">
+                            <p className="pokemon-container-title-p">
+                                <a className="pokemon-container-title-a"
+                                    href="/pokemon/id"><strong>{pokemon.name}</strong> </a>
+                            </p>
+                        </div>
                         <a href="/pokemon/id">
                             <img className="card-img-top"
-                             src={pokemon.photo} alt="Card image cap" />
+                                src={pokemon.photo} alt="Card image cap" />
                         </a>
                         <div className="pokemon-container-description">
-                            <p>
-                                <a href="/pokemon/id"><strong>{pokemon.name}</strong> </a>
-                            </p>
-                            <p className="pokemon-container-description-line">
-                                <i className="fas fa-film"></i> {pokemon.types}
-                        </p>
+                            {pokemon.type && pokemon.type.map((type: string) => (
+                                <p className="pokemon-container-description-line">
+                                    <i className="fas fa-film"></i> {type}
+                                </p>
+                            ))}
+
                         </div>
                     </div>
                 ))}
             </React.Fragment>
-               
+
         )
     }
 
     render() {
-        console.log('Pokedex Props', this.props)
+        //console.log('Pokedex Props', this.props)
         return (
             <div className="container">
 

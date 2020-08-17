@@ -5,7 +5,6 @@ using Pokedex.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Security.Authentication.ExtendedProtection;
 using System.Threading.Tasks;
 
 namespace Pokedex.Core.Integrations
@@ -40,20 +39,37 @@ namespace Pokedex.Core.Integrations
                 List<Pokemon> retList = new List<Pokemon>();
                 foreach (var item in pokemonDto.results)
                 {
-                    var pokemonDetail = await GetPokemonDetail(item.url);
-                    if (pokemonDetail != null)
+                    if (item != null)
                     {
+                        string id = item.url.Split('/')[item.url.Split('/').Length - 2];
+
+
                         retList.Add(new Pokemon
                         {
-                            Id = pokemonDetail.id,
-                            Name = pokemonDetail.name,
-                            Photo = pokemonDetail.sprites.front_default,
-                            Types = pokemonDetail.types.Select(i => i.type.name).ToList(),
-                            Height = pokemonDetail.height.ToString(),
-                            Weight = pokemonDetail.weight.ToString(),
-                            Moves = pokemonDetail.moves.Select(i => i.move.name).ToList()
+                            Id = System.Convert.ToInt32(id),
+                            Name = item.name,
+                            //Photo = pokemonDetail.sprites.front_default,
+                            //Types = pokemonDetail.types.Select(i => i.type.name).ToList(),
+                            //Height = pokemonDetail.height.ToString(),
+                            //Weight = pokemonDetail.weight.ToString(),
+                            //Moves = pokemonDetail.moves.Select(i => i.move.name).ToList()
                         });
+
                     }
+                    //var pokemonDetail = await GetPokemonDetail(item.url);
+                    //if (pokemonDetail != null)
+                    //{
+                    //    retList.Add(new Pokemon
+                    //    {
+                    //        Id = pokemonDetail.id,
+                    //        Name = pokemonDetail.name,
+                    //        Photo = pokemonDetail.sprites.front_default,
+                    //        Types = pokemonDetail.types.Select(i => i.type.name).ToList(),
+                    //        Height = pokemonDetail.height.ToString(),
+                    //        Weight = pokemonDetail.weight.ToString(),
+                    //        Moves = pokemonDetail.moves.Select(i => i.move.name).ToList()
+                    //    });
+                    //}
                 }
 
                 return retList;
@@ -62,6 +78,28 @@ namespace Pokedex.Core.Integrations
                 //    Name = pokemon.name
                 //}).ToList();
             }
+            return null;
+        }
+
+        public async Task<Pokemon> GetById(string id)
+        {
+            var url = $"https://pokeapi.co/api/v2/pokemon/{id}/";
+
+            var pokemonDetail = await GetPokemonDetail(url);
+            if (pokemonDetail != null)
+            {
+                return new Pokemon
+                {
+                    Id = pokemonDetail.id,
+                    Name = pokemonDetail.name,
+                    Photo = pokemonDetail.sprites.front_default,
+                    Types = pokemonDetail.types.Select(i => i.type.name).ToList(),
+                    Height = pokemonDetail.height.ToString(),
+                    Weight = pokemonDetail.weight.ToString(),
+                    Moves = pokemonDetail.moves.Select(i => i.move.name).ToList()
+                };
+            }
+
             return null;
         }
 
