@@ -16,6 +16,7 @@ namespace Pokedex.Core.Core
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Trainer>().HasData(new List<Trainer>
             {
                 new Trainer {

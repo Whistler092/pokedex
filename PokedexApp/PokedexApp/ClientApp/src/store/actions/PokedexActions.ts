@@ -33,14 +33,15 @@ export const actionCreators = {
     requestInitialPokemon: (index: number): AppThunkAction<KnownAction> => (dispatch, getState) => {
         const appState = getState();
         if (appState && appState.pokedex && index !== appState.pokedex.index) {
-            let url = 'https://pokeapi.co/api/v2/pokemon?limit=300&offset=100';
+            let url = '/api/Poke?offset=100';
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
+                    console.log('requestInitialPokemon', data);
                     dispatch({
                         type: RECEIVE_INITIAL_POKEMON,
                         index: index,
-                        pokemons: data.results
+                        pokemons: data
                     });
                 });
             dispatch({

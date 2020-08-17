@@ -43,23 +43,25 @@ class Pokedex extends PureComponent<PokedexProps> {
     private renderPokemons(pokemons: any[]) {
         console.log('renderPokemons', pokemons);
         return (
-            <div >
-                {pokemons.map(pokemon => (
-                     <div className="col-sm" key={pokemon.name}>
+            <React.Fragment >
+                 {pokemons.map(pokemon => (
+                     <div className="col-sm-3" key={pokemon.name}>
                         <a href="/pokemon/id">
-                            <img className="card-img-top" height="100%" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/148.png" alt="Card image cap" />
+                            <img className="card-img-top"
+                             src={pokemon.photo} alt="Card image cap" />
                         </a>
-                        <div className="movie-container-description">
+                        <div className="pokemon-container-description">
                             <p>
                                 <a href="/pokemon/id"><strong>{pokemon.name}</strong> </a>
                             </p>
-                            <p className="movie-container-description-line">
-                                <i className="fas fa-film"></i> dragonate
+                            <p className="pokemon-container-description-line">
+                                <i className="fas fa-film"></i> {pokemon.types}
                         </p>
                         </div>
                     </div>
                 ))}
-            </div>
+            </React.Fragment>
+               
         )
     }
 
@@ -75,10 +77,10 @@ class Pokedex extends PureComponent<PokedexProps> {
                     </div>
                     <input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3" /> {/* (keyup)="searchMovie($event)" */}
                 </div>
-                <div className="movie-container row">
+                <div className="row">
                     {this.renderPokemons(this.props.pokemons)}
                 </div>
-                <div className="movie-container-paginate">
+                <div className="pokemon-container-paginate">
                     {this.renderPagination()}
                 </div >
             </div >
