@@ -2,6 +2,16 @@
 
 namespace Pokedex.Entities
 {
+    public class GetAllQueryPagination
+    {
+        public int count { get; set; }
+        public string next { get; set; }
+        public string previous { get; set; }
+
+        public List<Pokemon> results { get; set; }
+
+    }
+
     public class PokemonQueryDto
     {
         public int count { get; set; }
@@ -78,6 +88,43 @@ namespace Pokedex.Entities
     {
         public int slot { get; set; }
         public TypeDto2 type { get; set; }
+    }
+
+    public class PokemonSpeciesDto
+    {
+        public EvolutionChainUrlDto evolution_chain { get; set; }
+
+        public EvolvesFromDto evolves_from_species { get; set; }
+
+    }
+
+    public class EvolvesFromDto
+    {
+        public string name { get; set; }
+    }
+
+    public class EvolutionChainUrlDto
+    {
+        public string url { get; set; }
+    }
+
+    public class EvolutionChainDto
+    {
+        public EvolvesTo chain { get; set; }
+        public int id { get; set; }
+    }
+
+
+    public class Species
+    {
+        public string name { get; set; }
+        public string url { get; set; }
+    }
+
+    public class EvolvesTo
+    {
+        public List<EvolvesTo> evolves_to { get; set; }
+        public Species species { get; set; }
     }
 
 }

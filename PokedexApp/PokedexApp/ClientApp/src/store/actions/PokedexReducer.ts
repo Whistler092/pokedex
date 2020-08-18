@@ -3,12 +3,16 @@ import {
     PokedexState, KnownAction,
     REQUEST_INITIAL_POKEMON,
     RECEIVE_INITIAL_POKEMON,
-    RECEIVE_FULL_POKEMON
+    RECEIVE_FULL_POKEMON,
+    RECEIVE_DETAILED_POKEMON
 } from './PokedexActions';
 
 const initialState: PokedexState = {
     isLoading: false,
-    pokemons: []
+    pokemons: [],
+    count: 0,
+    next: '',
+    previous: ''
 };
 
 export const reducer: Reducer<PokedexState>
@@ -18,33 +22,40 @@ export const reducer: Reducer<PokedexState>
         switch (action.type) {
             case REQUEST_INITIAL_POKEMON:
                 return {
+                    ...state,
                     index: action.index,
                     isLoading: true,
                     pokemons: state.pokemons
                 }
+            case RECEIVE_DETAILED_POKEMON:
+                return {
+                    ...state,
+                    pokemonDetail: action.pokemon
+                }
             case RECEIVE_INITIAL_POKEMON:
+                console.log('RECEIVE_INITIAL_POKEMON', action)
                 if (action.index === state.index) {
+                    action.pokemons.forEach(i => i.photo = '/img/Spinner-1s-200px.gif')
                     return {
                         index: action.index,
                         pokemons: action.pokemons,
-                        isLoading: false
-                    };
+                        isLoading: false,
+                        count: action.count,
+                        next: action.next,
+                        previous: action.previous,                    };
                 }
             case RECEIVE_FULL_POKEMON:
                 {
-                    //console.log('RECEIVE_FULL_POKEMON', action.pokemon);
-                    /* let pokemon = state.pokemons.filter(i => i.id === action.pokemon.id)
-                    pokemon[0].photo = action.pokemon.photo;
-                    pokemon[0].type = action.pokemon.types; */
                     let pokemon = state.pokemons.map(i => {
                         if(i.id === action.pokemon.id){
                             i.photo = action.pokemon.photo;
-                            i.type = action.pokemon.types; 
+                            i.types = action.pokemon.types; 
                         }
                         return i;
                     })
                     
                     return {
+                        ...state,
                         index: state.index,
                         isLoading: state.isLoading,
                         pokemons: pokemon

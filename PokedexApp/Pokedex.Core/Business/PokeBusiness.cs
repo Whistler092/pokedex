@@ -15,14 +15,19 @@ namespace Pokedex.Core.Business
             this.pokeAPIIntegration = pokeAPIIntegration;
         }
 
-        public async Task<List<Pokemon>> GetAll(string offset)
+        public async Task<GetAllQueryPagination> GetAll(string offset)
         {
            return await pokeAPIIntegration.GetAll(offset);
         }
 
-        public async Task<Pokemon> GetById(string id)
+        public async Task<Pokemon> GetById(string id, bool loadEvolutionChain)
         {
-            return await pokeAPIIntegration.GetById(id);
+            return await pokeAPIIntegration.GetById(id, loadEvolutionChain);
+        }
+
+        public async Task<Pokemon> SearchByName(string search)
+        {
+            return await pokeAPIIntegration.SearchByName(search);
         }
     }
 }

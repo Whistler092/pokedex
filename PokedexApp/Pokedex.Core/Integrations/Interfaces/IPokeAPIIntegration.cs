@@ -6,7 +6,8 @@ namespace Pokedex.Core.Integrations.Interfaces
 {
     public interface IPokeAPIIntegration
     {
-        Task<List<Pokemon>> GetAll(string offset);
-        Task<Pokemon> GetById(string id);
+        Task<GetAllQueryPagination> GetAll(string offset);
+        Task<Pokemon> GetById(string id, bool loadEvolutionChain);
+        Task<Pokemon> SearchByName(string search);
     }
 }
