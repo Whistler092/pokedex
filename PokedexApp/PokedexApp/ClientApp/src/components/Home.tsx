@@ -5,7 +5,6 @@ import Pokedex from './Pokedex';
 const Home = () => (
   <div>
     <Pokedex />
-    
   </div>
 );
 

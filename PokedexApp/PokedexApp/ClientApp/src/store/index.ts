@@ -1,12 +1,8 @@
-import * as WeatherForecasts from './WeatherForecasts';
-import * as Counter from './Counter';
 import * as Pokedex from "./actions/PokedexActions";
 import * as PokedexReducer from "./actions/PokedexReducer";
 
 // The top-level state object
 export interface ApplicationState {
-    counter: Counter.CounterState | undefined;
-    weatherForecasts: WeatherForecasts.WeatherForecastsState | undefined;
     pokedex: Pokedex.PokedexState | undefined; 
 }
 
@@ -14,8 +10,6 @@ export interface ApplicationState {
 // the reducer with the matching name. It's important that the names match exactly, and that the reducer
 // acts on the corresponding ApplicationState property type.
 export const reducers = {
-    counter: Counter.reducer,
-    weatherForecasts: WeatherForecasts.reducer,
     pokedex: PokedexReducer.reducer
 };
 

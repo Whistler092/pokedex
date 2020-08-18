@@ -101,11 +101,6 @@ namespace Pokedex.Core.Integrations
                 var stringResult = await response.Content.ReadAsStringAsync();//ReadAsAsync<Pokemon>();
                 var pokemonDto = JsonConvert.DeserializeObject<PokemonSpeciesDto>(stringResult);
 
-                //if (pokemonDto != null && pokemonDto.evolves_from_species != null)
-                //{
-                //    evolves.Add(pokemonDto.evolves_from_species.name);
-                //}
-
                 if (pokemonDto != null && pokemonDto.evolution_chain != null)
                 {
                     httpClient = httpClientFactory.CreateClient();
