@@ -12,11 +12,13 @@ type PokedexProps =
 
 class Pokedex extends PureComponent<PokedexProps> {
 
+    state = {
+        searchText: ''
+    }
+    
     constructor(props: Readonly<PokedexProps>) {
         super(props)
-        this.state = {
-            searchText: ''
-        }
+        
 
         this.onChangeSearchText = this.onChangeSearchText.bind(this)
         this.prevPage = this.prevPage.bind(this);
@@ -48,7 +50,7 @@ class Pokedex extends PureComponent<PokedexProps> {
 
     private renderPagination() {
         //console.log('renderPagination', this.props)
-        let totalPages = parseInt(this.props.count / 50);
+        let totalPages = this.props.count / 50;
         if (totalPages === 0) {
             return <p>Loading...</p>;
         }
