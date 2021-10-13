@@ -44,6 +44,7 @@ export const reducer: Reducer<PokedexState>
                         next: action.next,
                         previous: action.previous,                    };
                 }
+                return state;
             case RECEIVE_FULL_POKEMON:
                 {
                     let pokemon = state.pokemons.map(i => {
