@@ -84,7 +84,7 @@ class Pokedex extends PureComponent<PokedexProps> {
                         </div>
                         <a href={`/pokemon-details/${pokemon.id}`}>
                             <img className="card-img-top"
-                                src={pokemon.photo} alt="Card image cap" />
+                                src={pokemon.photo} alt={`Card cap ${pokemon.name}`} />
                         </a>
                         <div className="pokemon-container-description">
                             {pokemon.types && pokemon.types.map((type: string) => (
